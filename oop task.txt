@@ -1,0 +1,249 @@
+Question no 1: 
+“The Smart Thermostate
+(boundary validation)”
+ #include <iostream>
+using namespace std;
+class Thermostat
+{
+private:
+ string roomName;
+ double temperature;
+public:
+ Thermostat(string r, double t)
+ {
+ roomName = r;
+ temperature = t;
+ }
+ double getTemperature()
+ {
+ return temperature;
+ }
+ void setTemperature(double temp){
+ if(temp < 16.0 || temp > 30.0)
+ {
+cout<<"Error: "<<temp<<"C is outside the hardware limits (16.0C - 30.0C)."<<endl;
+ }
+ else
+ {
+ temperature = temp;
+ }
+ }
+};
+int main(){
+ Thermostat t("Living Room",22.5);
+ t.setTemperature(35.0);
+ t.setTemperature(18.0);
+ cout<<"Current Temp: "<<t.getTemperature()<<"C"<<endl;
+ return 0;
+}
+Question no 2: 
+“the Digital Parking meter 
+Capacity Capping”
+#include <iostream>
+using namespace std;
+class ParkingMeter
+{
+private:
+ int timeRemaining;
+ const int maxTime = 120;
+public:
+ ParkingMeter()
+ {
+ timeRemaining = 0;
+ }
+ int getTimeRemaining()
+ {
+ return timeRemaining;
+ }
+ void addTime(int minutes)
+ {
+timeRemaining = timeRemaining + minutes;
+ if(timeRemaining > maxTime)
+ {
+ timeRemaining = maxTime;
+ cout<<"Max time reached. Excess coins refunded."<<endl;
+ }
+ }
+};
+int main()
+{
+ ParkingMeter meter;
+ meter.addTime(60);
+ meter.addTime(90);
+ cout<<"Time on meter: "<<meter.getTimeRemaining()<<" mins"<<endl;
+ return 0;
+}
+ 
+Question no 3: 
+“Vending Machine Slot
+(Stock Management)”
+#include <iostream>
+using namespace std;
+class SnackSlot
+{
+private:
+ string snackName;
+ double price;
+ int stockQuantity;
+public:
+ SnackSlot(string n,double p,int s)
+{
+ snackName = n;
+ price = p;
+ stockQuantity = s;
+ }
+ int getStockQuantity()
+ {
+ return stockQuantity;
+ }
+ void buySnack(int quantity)
+ {
+ if(stockQuantity >= quantity)
+ {
+ stockQuantity = stockQuantity - quantity;
+ cout<<"Dispensing..."<<endl;
+ }
+ else
+ {
+ cout<<"Transaction failed: Insufficient stock!"<<endl;
+ }
+ }
+};
+int main()
+{
+SnackSlot slot("Chips",1.50,5);
+ slot.buySnack(3);
+ slot.buySnack(4);
+ cout<<"Remaining Stock: "<<slot.getStockQuantity()<<endl;
+ return 0;
+}
+
+Question no 4: 
+“Secure User Profile
+(Credential Checking)”
+#include <iostream>
+using namespace std;
+class UserProfile
+{
+private:
+ string username;
+ string password;
+public:
+ UserProfile(string u,string p)
+ {
+ username = u;
+ password = p;
+ }
+ string getUsername()
+ {
+ return username;
+ }
+ void updatePassword(string oldPassword,string newPassword)
+ {
+ if(oldPassword == password)
+ {
+ password = newPassword;
+ cout<<"Password updated."<<endl;
+ }
+ else
+ {
+ cout<<"Access Denied: Incorrect current password."<<endl;
+}
+ }
+};
+int main()
+{
+ UserProfile user("ali_dev","qwerty123");
+ user.updatePassword("wrongpass","newSecurePass!");
+ user.updatePassword("qwerty123","newSecurePass!");
+ return 0;
+}
+
+Question no 5: 
+“Video Game Character 
+(Clamping values)”
+#include <iostream>
+using namespace std;
+class GameCharacter
+{
+private:
+ string name;
+ int health;
+ int maxHealth;
+public:
+ GameCharacter(string n,int m)
+ {
+ name = n;
+ maxHealth = m;
+ health = m;
+ }
+ int getHealth()
+ {
+ return health;
+ }
+void takeDamage(int damage)
+ {
+ health = health - damage;
+ if(health <= 0)
+ {
+ health = 0;
+ cout<<"Character has fainted."<<endl;
+ }
+ }
+ void heal(int amount)
+ {
+ health = health + amount;
+ if(health > maxHealth)
+ {
+ health = maxHealth;
+ }
+ }
+};
+int main()
+{
+ GameCharacter hero("Arthur",100);
+hero.takeDamage(120);
+ hero.heal(50);
+ hero.heal(200);
+ cout<<"Final Health: "<<hero.getHealth()<<endl;
+ return 0;
+}
+
+Question no 6: 
+“Coffee Shop Loyality Card 
+(State Trigger)”
+#include <iostream>
+using namespace std;
+class LoyaltyCard
+{
+private:
+ string customerName;
+ int stamps;
+public:
+ LoyaltyCard(string name)
+ {
+ customerName = name;
+ stamps = 0;
+ }
+ int getStamps()
+ {
+ return stamps;
+ }
+ void addStamp()
+ {
+ stamps++;
+ if(stamps == 10)
+ {
+ cout<<"Congratulations "<<customerName<<"! You earned a free coffee!"<<endl;
+ stamps = 0;
+ }
+ }
+};
+int main(){
+ LoyaltyCard card("Sara");
+ for(int i=0;i<10;i++){
+ card.addStamp();
+ }
+ cout<<"Current Stamps: "<<card.getStamps()<<endl;
+ return 0;
+}
